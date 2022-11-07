@@ -1,0 +1,30 @@
+C:\Users\janli\source\repos\Restaurang-git\Restaurang\GUI\GUI\bin\Debug\net6.0\GUI.exe
+C:\Users\janli\source\repos\Restaurang-git\Restaurang\GUI\GUI\bin\Debug\net6.0\GUI.deps.json
+C:\Users\janli\source\repos\Restaurang-git\Restaurang\GUI\GUI\bin\Debug\net6.0\GUI.runtimeconfig.json
+C:\Users\janli\source\repos\Restaurang-git\Restaurang\GUI\GUI\bin\Debug\net6.0\GUI.dll
+C:\Users\janli\source\repos\Restaurang-git\Restaurang\GUI\GUI\bin\Debug\net6.0\GUI.pdb
+C:\Users\janli\source\repos\Restaurang-git\Restaurang\GUI\GUI\obj\Debug\net6.0\GUI.csproj.AssemblyReference.cache
+C:\Users\janli\source\repos\Restaurang-git\Restaurang\GUI\GUI\obj\Debug\net6.0\GUI.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\janli\source\repos\Restaurang-git\Restaurang\GUI\GUI\obj\Debug\net6.0\GUI.AssemblyInfoInputs.cache
+C:\Users\janli\source\repos\Restaurang-git\Restaurang\GUI\GUI\obj\Debug\net6.0\GUI.AssemblyInfo.cs
+C:\Users\janli\source\repos\Restaurang-git\Restaurang\GUI\GUI\obj\Debug\net6.0\GUI.csproj.CoreCompileInputs.cache
+C:\Users\janli\source\repos\Restaurang-git\Restaurang\GUI\GUI\obj\Debug\net6.0\GUI.dll
+C:\Users\janli\source\repos\Restaurang-git\Restaurang\GUI\GUI\obj\Debug\net6.0\refint\GUI.dll
+C:\Users\janli\source\repos\Restaurang-git\Restaurang\GUI\GUI\obj\Debug\net6.0\GUI.pdb
+C:\Users\janli\source\repos\Restaurang-git\Restaurang\GUI\GUI\obj\Debug\net6.0\GUI.genruntimeconfig.cache
+C:\Users\janli\source\repos\Restaurang-git\Restaurang\GUI\GUI\obj\Debug\net6.0\ref\GUI.dll
+C:\Users\janli\source\repos\Jannes bodega\GUI\GUI\bin\Debug\net6.0\GUI.exe
+C:\Users\janli\source\repos\Jannes bodega\GUI\GUI\bin\Debug\net6.0\GUI.deps.json
+C:\Users\janli\source\repos\Jannes bodega\GUI\GUI\bin\Debug\net6.0\GUI.runtimeconfig.json
+C:\Users\janli\source\repos\Jannes bodega\GUI\GUI\bin\Debug\net6.0\GUI.dll
+C:\Users\janli\source\repos\Jannes bodega\GUI\GUI\bin\Debug\net6.0\GUI.pdb
+C:\Users\janli\source\repos\Jannes bodega\GUI\GUI\obj\Debug\net6.0\GUI.csproj.AssemblyReference.cache
+C:\Users\janli\source\repos\Jannes bodega\GUI\GUI\obj\Debug\net6.0\GUI.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\janli\source\repos\Jannes bodega\GUI\GUI\obj\Debug\net6.0\GUI.AssemblyInfoInputs.cache
+C:\Users\janli\source\repos\Jannes bodega\GUI\GUI\obj\Debug\net6.0\GUI.AssemblyInfo.cs
+C:\Users\janli\source\repos\Jannes bodega\GUI\GUI\obj\Debug\net6.0\GUI.csproj.CoreCompileInputs.cache
+C:\Users\janli\source\repos\Jannes bodega\GUI\GUI\obj\Debug\net6.0\GUI.dll
+C:\Users\janli\source\repos\Jannes bodega\GUI\GUI\obj\Debug\net6.0\refint\GUI.dll
+C:\Users\janli\source\repos\Jannes bodega\GUI\GUI\obj\Debug\net6.0\GUI.pdb
+C:\Users\janli\source\repos\Jannes bodega\GUI\GUI\obj\Debug\net6.0\GUI.genruntimeconfig.cache
+C:\Users\janli\source\repos\Jannes bodega\GUI\GUI\obj\Debug\net6.0\ref\GUI.dll
