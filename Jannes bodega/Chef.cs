@@ -16,10 +16,22 @@ namespace Restaurant
         public int Busy { get; set; }
 
 
+
         public Chef()
         {
+            string[] chefNames =
+            {
+                "Bula",
+                "Mannerheim",
+                "Myllimäki",
+                "Sibylla",
+                "Max",
+                "Mux",
+                "Min",
+            };
             Random rnd = new Random();
             Skills = rnd.Next(1, 6);
+            Name = chefNames[Skills - 1];
         }
     }
 }

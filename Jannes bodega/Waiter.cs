@@ -11,7 +11,7 @@ namespace Restaurant
     {
         public Order Order { get; set; }
         public int Busy { get; set; }
-
+        public double Tip { get; set; }
         public int ServiceLevel { get; set; }
         public Waiter()
         {
@@ -28,6 +28,7 @@ namespace Restaurant
             Random rnd = new Random();
             ServiceLevel = rnd.Next(1, 7);
             Name = waiterNames[ServiceLevel-1];
+            Tip = 0.0;
         }
         public static void DrawMe(Waiter me)
         {

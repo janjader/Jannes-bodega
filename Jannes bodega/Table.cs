@@ -20,10 +20,11 @@ namespace Restaurant
         public int Quality { get; set; } = 1;
         public bool Empty { get; set; } = true;
         public bool IsClean { get; set; } = true;
-        public int TipCounter { get; set; } = 0;
         public int SeatedAt { get; set; } = 0;
         public int OrderAt { get; set; } = 0;
         public int ServedAt { get; set; } = 0;
+        public int EatingTime { get; set; }
+        public int Cleaning { get; set; }
         public int FinishedAt { get; set; }
         public bool WaitingToOrder { get; set; }
         public bool WaitingForFood { get; set; }
@@ -32,16 +33,6 @@ namespace Restaurant
         public Order Order { get; set; }
 
         public List<Guest> GuestsAtTable { get; set; }
-        public List<Food> FoodChoice { get; set; }
-
-        //osäkert vart denna ska ligga.
-
-        //Dictionary med personer som sitter vid det
-
-        //public List<string> ThingsOnTable { get; set; }  //inväntar onsdagens lektion innan vi går vidare med detta.
-
-
-
 
         public Table()
         {
@@ -58,10 +49,16 @@ namespace Restaurant
 
         public static void DrawMe(Table me)
         {
-            if (!me.Empty)
+            if (me.Empty && me.IsClean)
+            {
+                string[] graphics = new string[1];
+                graphics[0] = "";
+                GUI.Window.Draw(me.Name, me.Xpos, me.Ypos, graphics);
+            }
+            else
             {
                 int companySize = me.GuestsAtTable.Count;
-                string[] graphics = new string[companySize + 3];
+                string[] graphics = new string[companySize + 5];
                 for (int i = 0; i < companySize; i++)
                 {
                     if (me.GuestsAtTable[i] is Person)
@@ -69,17 +66,12 @@ namespace Restaurant
                         graphics[i] = (me.GuestsAtTable[i] as Person).Name;
                     }
                 }
-                graphics[companySize] = "Seated at " + me.SeatedAt;
-                graphics[companySize+1] = "Ordered at " + me.OrderAt;
-                graphics[companySize + 2] = "Waiter " + me.Waiter.Name;
+                graphics[companySize]   = "Satt ned: " + me.SeatedAt;
+                graphics[companySize+1] = "Beställde: " + me.OrderAt;
+                graphics[companySize+2] = "Serverad:" + me.ServedAt;
+                graphics[companySize+3] = "Ättid: " + me.EatingTime;
+                graphics[companySize+4] = "Städas: " + me.Cleaning;
 
-
-                GUI.Window.Draw(me.Name, me.Xpos, me.Ypos, graphics);
-            }
-            else
-            {
-                string[] graphics = new string[1];
-                graphics[0] = "";
                 GUI.Window.Draw(me.Name, me.Xpos, me.Ypos, graphics);
             }
         }
@@ -97,9 +89,64 @@ namespace Restaurant
             me.OrderAt = timecounter;
             me.WaitingToOrder = false;
             me.WaitingForFood = true;
-            me.Waiter.Busy = me.Waiter.ServiceLevel;
+            me.Waiter.Busy = 0; // me.Waiter.ServiceLevel;
             me.Waiter.Order = me.Order;
 
+        }
+        public static void ReceiveFood(Table me, int timecounter)
+        {
+            me.ServedAt = timecounter;
+            me.WaitingToOrder = false;
+            me.WaitingForFood = false;
+            me.Eating = true;
+            me.EatingTime = 20;
+        }
+        public static double CalculateTip(Table me)
+        {
+            double tip = 0.0;
+
+            if ((me.FinishedAt - me.SeatedAt) < 20)
+                tip = me.Order.Value * 0.15;
+            else
+                tip = me.Order.Value * 0.1;
+
+            if (me.Waiter.ServiceLevel > 3)
+                tip = tip * 0.9;
+
+            if (me.Quality < 3)
+                tip = tip * 0.9;
+
+            return tip;
+
+        }
+        public static void PayAndLeave(Table me, int timecounter)
+        {
+            me.FinishedAt = timecounter;
+            me.WaitingToOrder = false;
+            me.WaitingForFood = false;
+            me.Eating = false;
+            me.Cleaning = 3;
+            me.IsClean = false;
+            me.Empty = true;
+            me.Waiter.Tip = CalculateTip(me);
+        }
+        public static void Clear(Table me)
+        {
+            me.GuestsAtTable = null;
+            me.SeatedAt = 0;
+            me.OrderAt = 0;
+            me.FinishedAt = 0;
+            me.ServedAt = 0;
+            me.Cleaning = 0;
+            me.FinishedAt = 0;
+            me.WaitingToOrder = false;
+            me.WaitingForFood = false;
+            me.Eating = false;
+            me.IsClean = true;
+            me.Empty = true;
+            me.Waiter = null;
+            me.Order.Food.Clear();
+            me.Order = null;
         }
     }
 }

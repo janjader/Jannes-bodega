@@ -27,7 +27,11 @@ namespace Restaurant
             Table = table;
             Waiter = waiter;
             OrderedAt = timecounter;
-
+            Value = 0;
+            foreach (Food f in food)
+            {
+                Value += f.Price;
+            }
         }
 
 
