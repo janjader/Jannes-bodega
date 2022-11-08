@@ -161,6 +161,9 @@ namespace Restaurant
                 // Placera order i köket
                 PlaceOrder();
 
+                // Hämta order i köket
+                PickupFood();
+
 
                 Console.Clear();
                 PrintStatus();
@@ -201,7 +204,7 @@ namespace Restaurant
         internal Waiter FindFreeWaiter(List<Waiter> waiters)
         {
             foreach (Waiter w in waiters)
-                if (w.Busy == 0 && w.Orders.Count == 0)
+                if (w.Busy == 0 && w.Order == null)
                     return w;
             return null;
 
@@ -210,7 +213,7 @@ namespace Restaurant
         internal Chef FindFreeChef(List<Chef> chefs)
         {
             foreach (Chef c in chefs)
-                if (c.Busy == 0 && c.Orders.Count == 0)
+                if (c.Busy == 0 && c.Order == null)
                     return c;
             return null;
 
@@ -219,7 +222,7 @@ namespace Restaurant
         internal Waiter FindWaiterWithOrder(List<Waiter> waiters)
         {
             foreach (Waiter w in waiters)
-                if (w.Busy == 0 && w.Orders.Count > 0)
+                if (w.Busy == 0 && w.Order != null)
                     return w;
             return null;
 
@@ -232,6 +235,17 @@ namespace Restaurant
                     return Tables.ElementAt(i).Value;
             return null;
         }
+
+        // Hitta en klar kock
+        public Chef FindReadyChef()
+        {
+            foreach (Chef c in Chefs)
+                if (c.Busy == 0 && c.Order != null)
+                    return c;
+            return null;
+        }
+
+        // Plocka en slumpmässig maträtt ur menyn
         internal Food PickRandomFood(List <Food>Menu)
         {
             Random rnd = new Random();
@@ -251,19 +265,17 @@ namespace Restaurant
             return;
         }
 
+        
         // Ta upp en beställning
         internal void TakeOrder()
         {
+            List<Food> Food = new List<Food>();
             Table waitingTable = FindTableWaitingToOrder();
             if (waitingTable != null)
             {
-                waitingTable.OrderAt = TimeCounter;
-                waitingTable.WaitingToOrder = false;
-                waitingTable.WaitingForFood = true;
-                for (int i = 0; i< waitingTable.GuestsAtTable.Count; i++)
-                    waitingTable.Waiter.Orders.Add(PickRandomFood(Menu));
-
-                waitingTable.Waiter.Busy = waitingTable.Waiter.ServiceLevel;
+                for (int i = 0; i < waitingTable.GuestsAtTable.Count; i++)
+                    Food.Add(PickRandomFood(Menu));
+                Table.TakeOrder(waitingTable, Food, TimeCounter);
                 NewsFeed.Add("Ta upp en order");
             }
         }
@@ -277,28 +289,26 @@ namespace Restaurant
                 Chef chef = FindFreeChef(Chefs);
                 if (chef != null)
                 {
-                    foreach (Food f in waiter.Orders)
-                        chef.WorkOrder.Add(f);
-                    waiter.Orders.Clear();
+                    chef.Order = waiter.Order;
                     chef.Busy = 20 + chef.Skills;
+                    waiter.Order.Food.Clear();
+                    waiter.Order = null;
+                    waiter.Busy = 0;
                     NewsFeed.Add("Kocken fick ordern");
                 }
             }
         }
         internal void PickupFood()
         {
-            Chef chef = FindReadyChef(Chefs);
+            Chef chef = FindReadyChef();
             if (chef != null)
             {
-                Waiter waiter = FindFreeChef(Chefs);
-                if (chef != null)
-                {
-                    foreach (Food f in waiter.Orders)
-                        chef.WorkOrder.Add(f);
-                    waiter.Orders.Clear();
-                    chef.Busy = 20 + chef.Skills;
-                    NewsFeed.Add("Kocken fick ordern");
-                }
+                Waiter waiter = chef.Order.Waiter;
+                chef.Order.CookedAt = TimeCounter;
+                waiter.Order = chef.Order;
+                chef.Order.Food.Clear();
+                chef.Order = null;
+                NewsFeed.Add("Kyparen fick tillbaka ordern");
             }
         }
 
@@ -307,6 +317,7 @@ namespace Restaurant
         {
             List<Guest> nextCompany = FindNextCompany(Companies);
             if (nextCompany != null)
+
             {
                 Table freeTable = FindFreeTable(nextCompany);
                 if (freeTable != null)

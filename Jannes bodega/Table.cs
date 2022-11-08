@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http.Headers;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using static Restaurant.Person;
@@ -28,6 +29,7 @@ namespace Restaurant
         public bool WaitingForFood { get; set; }
         public bool Eating { get; set; }
         public Waiter Waiter { get; set; }
+        public Order Order { get; set; }
 
         public List<Guest> GuestsAtTable { get; set; }
         public List<Food> FoodChoice { get; set; }
@@ -69,7 +71,7 @@ namespace Restaurant
                 }
                 graphics[companySize] = "Seated at " + me.SeatedAt;
                 graphics[companySize+1] = "Ordered at " + me.OrderAt;
-                graphics[companySize + 2] = "Waiter " + me.Waiter.Name + " " + me.Waiter.Orders.Count;
+                graphics[companySize + 2] = "Waiter " + me.Waiter.Name;
 
 
                 GUI.Window.Draw(me.Name, me.Xpos, me.Ypos, graphics);
@@ -88,6 +90,16 @@ namespace Restaurant
             me.SeatedAt = timecounter;
             me.Waiter = waiter;
             me.WaitingToOrder = true;
+        }
+        public static void TakeOrder(Table me, List<Food> food, int timecounter)
+        {
+            me.Order = new Order(food, me, me.Waiter, timecounter);
+            me.OrderAt = timecounter;
+            me.WaitingToOrder = false;
+            me.WaitingForFood = true;
+            me.Waiter.Busy = me.Waiter.ServiceLevel;
+            me.Waiter.Order = me.Order;
+
         }
     }
 }

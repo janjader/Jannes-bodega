@@ -9,7 +9,7 @@ namespace Restaurant
 {
     internal class Waiter : Person
     {
-        public List<Food> Orders = new List<Food>();
+        public Order Order { get; set; }
         public int Busy { get; set; }
 
         public int ServiceLevel { get; set; }
@@ -31,12 +31,12 @@ namespace Restaurant
         }
         public static void DrawMe(Waiter me)
         {
-            int orderSize = me.Orders.Count;
-            if (orderSize > 0)
-            { 
+            if (me.Order != null)
+            {
+                int orderSize = me.Order.Food.Count;
                 string[] graphics = new string[orderSize + 1];
                 for (int i = 0; i < orderSize; i++)
-                    graphics[i] = me.Orders.ElementAt(i).Name;
+                    graphics[i] = me.Order.Food.ElementAt(i).Name;
                 graphics[orderSize] = "Upptagen " + me.Busy;
                 GUI.Window.Draw(me.Name, 80, me.ServiceLevel*8, graphics);
             }
